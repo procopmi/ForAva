@@ -1,18 +1,21 @@
 package mediaRentalManager;
 
+import java.util.LinkedList;
+
 public class Customer implements Comparable<Customer> {
 	private String name;
 	private String address;
 	private String plan;
-	private String[] interested;
-	private String[] rented;
+	private LinkedList<Media> rented;
+	private LinkedList<Media> interested;
+	//private String[] rented;
 	//private static final String[] EMPTY_ARRAY = new String[0];
 
 
 	public Customer() {
 		// TODO Auto-generated constructor stub
-		this.setInterested(new String[]{});
-		this.setRented(new String[]{});
+		this.setInterested(new LinkedList<>());
+		this.setRented(new LinkedList<>());
 	}
 
 	public Customer(String customerName, String customerAddress, String customerPlan)
@@ -20,9 +23,18 @@ public class Customer implements Comparable<Customer> {
 		this.setName(customerName);
 		this.setAddress(customerAddress);
 		this.setPlan(customerPlan);
-		this.setInterested(new String[]{});
-		this.setRented(new String[]{});
+		this.setInterested(new LinkedList<>());
+		this.setRented(new LinkedList<>());
 	}
+	
+	public void setRented(LinkedList<Media> rented) {
+		this.rented = rented;
+	}
+
+	public void setInterested(LinkedList<Media> interested) {
+		this.interested = interested;
+	}
+
 	/**
 	 * @return customer name
 	 */
@@ -65,32 +77,13 @@ public class Customer implements Comparable<Customer> {
 		this.plan = plan;
 	}
 
-	/**
-	 * @return the interested
-	 */
-	public String[] getInterested() {
-		return interested;
-	}
 
-	/**
-	 * @param interested the interested to set
-	 */
-	public void setInterested(String[] interested) {
-		this.interested = interested;
-	}
-
-	/**
-	 * @return the rented
-	 */
-	public String[] getRented() {
+	public LinkedList<Media> getRented() {
 		return rented;
 	}
 
-	/**
-	 * @param rented the rented to set
-	 */
-	public void setRented(String[] rented) {
-		this.rented = rented;
+	public LinkedList<Media> getInterested() {
+		return interested;
 	}
 
 	@Override

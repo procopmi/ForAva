@@ -55,5 +55,13 @@ public class Album extends Media{
 	public Album() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Album(String title, int copies, String artist, String songs)
+	{
+		this.setTitle(title);
+		this.setCopies(copies);
+		this.setArtist(artist);
+		this.setSongs(songs);
+	}
 
 }

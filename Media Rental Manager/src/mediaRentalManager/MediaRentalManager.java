@@ -3,9 +3,8 @@
  */
 package mediaRentalManager;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+//import java.util.Arrays;
+import java.util.*;
 
 import tests.PublicTests;
 
@@ -17,7 +16,7 @@ public class MediaRentalManager implements MediaRentalManagerInt {
 
 	private ArrayList<Customer> customerDatabase;
 	private ArrayList<Media> rentalMedia;
-	private static int limitedPlanMax = 2;
+	private int limitedPlanLimit;
 
 	/**
 	 * 
@@ -26,6 +25,7 @@ public class MediaRentalManager implements MediaRentalManagerInt {
 		// TODO Auto-generated constructor stub
 		this.setCustomerDatabase(new ArrayList<>());
 		this.setRentalMedia(new ArrayList<>());
+		this.setLimitedPlanLimit(2);
 	}
 
 	/**
@@ -84,8 +84,8 @@ public class MediaRentalManager implements MediaRentalManagerInt {
 
 			returnCustomers = returnCustomers + "Name: " + aCustomer.getName() + ", " + "Address: "
 					+ aCustomer.getAddress() + ", " + "Plan: " + aCustomer.getPlan() + "\n" + "Rented: "
-					+ Arrays.toString(aCustomer.getRented()) + "\n" + "Queue: "
-					+ Arrays.toString(aCustomer.getInterested()) + "\n";
+					+ aCustomer.getRented() + "\n" + "Queue: "
+					+ aCustomer.getInterested() + "\n";
 			custCount++;
 		}
 
@@ -126,6 +126,7 @@ public class MediaRentalManager implements MediaRentalManagerInt {
 	@Override
 	public void setLimitedPlanLimit(int value) {
 		// TODO Auto-generated method stub
+		this.limitedPlanLimit = value;
 
 	}
 
@@ -192,9 +193,44 @@ public class MediaRentalManager implements MediaRentalManagerInt {
 	public ArrayList<String> searchMedia(String title, String rating, String artist, String songs) {
 		// TODO Auto-generated method stub
 		ArrayList<Media> allMedia = this.getRentalMedia();
+		ArrayList<String> searchResults = new ArrayList<String>();
 		
-		
-		return null;
+		Iterator<Media> it = allMedia.iterator();
+		while (it.hasNext())
+		{	
+			Media oneItem = it.next();
+			if (title != null)
+			{
+				if (oneItem.getTitle().contains(title))
+					searchResults.add(oneItem.getTitle());
+			}
+			else if (rating != null)
+			{
+				if (oneItem instanceof Movie)
+				{
+					Movie thisMovie = (Movie)oneItem;
+					if (thisMovie.getRating().contains(rating))
+						searchResults.add(thisMovie.getTitle());
+				}
+			}
+			else
+				if (oneItem instanceof Album)
+				{
+					Album thisAlbum = (Album)oneItem;
+					if (artist != null)
+					{
+						if (thisAlbum.getArtist().contains(artist))
+							searchResults.add(thisAlbum.getArtist());
+					}
+					else if (songs != null)
+					{
+						if (thisAlbum.getSongs().contains(songs))
+							searchResults.add(thisAlbum.getTitle());
+					}
+				}
+		}
+		return searchResults;
+		//return null;
 	}
 
 	/**
@@ -203,8 +239,9 @@ public class MediaRentalManager implements MediaRentalManagerInt {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		PublicTests myTests = new PublicTests();
-		myTests.testAddingCustomers();
-		myTests.testAddingMedia();
+		//myTests.testAddingCustomers();
+		//myTests.testAddingMedia();
+		myTests.testSearchMedia();
 	}
 
 }

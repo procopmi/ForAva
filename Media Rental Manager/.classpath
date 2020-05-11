@@ -6,6 +6,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/procopmi/Desktop/junit-4.13.jar"/>
+	<classpathentry kind="lib" path="/Users/Michael/git/ForAva/Media Rental Manager/lib/junit-4.13.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
